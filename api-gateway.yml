@@ -6,12 +6,12 @@ spring:
       mvc:
         routes:
           ## Movie Service
-          - id: movie-service
-            uri: lb://movie-service
-            predicates:
-              - Path=/movies/{segment}
-            filters:
-              - SetPath=/api/v1/movies/{segment}
+          # - id: movie-service
+          #   uri: lb://movie-service
+          #   predicates:
+          #     - Path=/movies/{segment}
+          #   filters:
+          #     - SetPath=/api/v1/movies/{segment}
 
           ## Catalog Service
           - id: catalog-service
