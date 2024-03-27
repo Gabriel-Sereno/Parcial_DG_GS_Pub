@@ -11,6 +11,28 @@ spring:
     hibernate.ddl-auto: update
     generate-ddl: true
     show-sql: true
+  rabbitmq:
+    username: guest
+    password: guest
+    host: localhost
+    port: 5672
+  cloud:
+    openfeign:
+      micrometer:
+        enabled: true
+
+queue:
+  movie:
+    name: movieQueue
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 
 eureka:
   client:
@@ -19,8 +41,3 @@ eureka:
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "health,info"

@@ -9,21 +9,23 @@ spring:
           - id: catalog-service
             uri: lb://catalog-service
             predicates:
-              - Path=/catalog/**
+              - Path=/catalog/{segment}
             filters:
               - SetPath=/api/v1/catalog/{segment}
-              - RewritePath=/catalog/(?<segment>.*)/, /$\{segment}
-
-
+          - id: catalog-service-one
+            uri: lb://catalog-service
+            predicates:
+              - Path=/catalog/{segment}/{subsegment}
+            filters:
+              - SetPath=/api/v1/catalog/{segment}/{subsegment}
+             # - RewritePath=/catalog(?<segment>/?.*), /api/v1/catalog$\{segment}
+management:
+  tracing:
+    sampling:
+      probability: 1.0
 eureka:
   client:
     service-url:
       default-zone: http://localhost:8761/eureka
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "health,info"
