@@ -5,21 +5,14 @@ spring:
     gateway:
       mvc:
         routes:
-          ## Movie Service
-          # - id: movie-service
-          #   uri: lb://movie-service
-          #   predicates:
-          #     - Path=/movies/{segment}
-          #   filters:
-          #     - SetPath=/api/v1/movies/{segment}
-
           ## Catalog Service
           - id: catalog-service
             uri: lb://catalog-service
             predicates:
-              - Path=/catalog/{segment}
+              - Path=/catalog/**
             filters:
               - SetPath=/api/v1/catalog/{segment}
+              - RewritePath=/catalog/(?<segment>.*)/, /$\{segment}
 
 
 eureka:
