@@ -51,6 +51,13 @@ resilience4j:
                 registerHealthIndicator: true
                 allowHealthIndicatorToFail: false
                 automaticTransitionFromOpenToHalfOpenEnabled: true
+    retry:
+      instances:
+          movie-service:
+              waitDuration: 1000
+              maxAttempts: 3
+              retryExceptions:
+                  - feign.FeignException$InternalServerError
 
 queue:
   movie:
